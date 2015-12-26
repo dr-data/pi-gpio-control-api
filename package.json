@@ -1,0 +1,15 @@
+{
+  "name": "GPIO Control",
+  "version": "1.0.0",
+  "description": "Server for controlling Raspberry Pi's GPIO pins with API calls",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "connect": "^3.4.0",
+    "express": "^4.13.3"
+  }
+}
