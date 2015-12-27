@@ -1,5 +1,6 @@
 // Server side js
 var http = require('http');
+var moment = require('moment');
 var _ = require('underscore');
 var exec = require('child_process').exec;
 var express = require('express');
@@ -57,6 +58,13 @@ app.get('/light', function(req, res){
 	
     console.log('time: ' + req.query.time);
     res.status(200).send('Lit up LED on GPIO2');
+});
+
+// Express route for current time
+app.get('/time', function(req, res){
+    var now = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
+    console.log(now)
+    res.status(200).send('Current time: ' + now);
 });
 
 // Express route for incoming requests for a list of all inputs
