@@ -31,6 +31,14 @@ setInterval(function() {
     });
 }, 500); //setInterval
 
+function checkTime(curMoment, setMoment) {
+    while (curMoment.isBefore(setMoment)){
+	curMoment = moment();
+        console.log("still sleeping");
+    }
+    console.log("done sleeping!");
+}
+
 app.use(express['static'](__dirname ));
 
 // Express route for incoming requests for a single input
@@ -55,16 +63,14 @@ app.get('/light', function(req, res){
     console.log('light up LED on GPIO2');
     // executes that line in terminal
     var ledBlink = exec('sudo python3 led_blink.py');
-	
-    console.log('time: ' + req.query.time);
     res.status(200).send('Lit up LED on GPIO2');
 });
 
-// Express route for current time
-app.get('/time', function(req, res){
-    var now = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
-    console.log(now)
-    res.status(200).send('Current time: ' + now);
+// Express route to light up LED on GPIO2 after a given time
+app.get('/alarmlight', function(req, res){
+    var queryMoment = moment(req.query.time, "YYYY-MM-DD HH:mm");
+    checkTime(moment(), queryMoment);
+    var ledBlink = exec('sudo python3  led_blink.py');
 });
 
 // Express route for incoming requests for a list of all inputs
